@@ -1,0 +1,67 @@
+{% load staticfiles %}
+{% include 'home/head.html'%}
+<section id="header">
+    <br>
+     <br>
+    <br>
+    <br>
+     <br>
+
+
+<div class="container">
+        <h1 style="text-align:center;font-size:50px;color: #4464AD;">IPint</h1>
+        <h4 style="text-align:center;color: #4464AD;">IP, Domain and Hash Intelligence Scanner.</h4>
+  </div>
+     <br>
+     <br>
+    <br>
+    <br>
+
+</section>
+
+<br>
+
+<section id="search">
+  <div class="container" id="search_bar">
+   <ul class="nav nav-tabs nav-justified">
+     <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" role="tab" href="#tab_1"><strong>IP</strong></a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" role="tab" href="#tab_2"><strong>URL</strong></a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" role="tab" href="#tab_3"><strong>Hash</strong></a>
+     </li>
+   </ul>
+   <div class="tab-content">
+     <div class="tab-pane active"  id="tab_1" role="tabpanel"><br>
+       <center><img src="media/ip.png" width="60" height="60"></center><br>
+         <form method="post" id="ip_form" action="/search/">{% csrf_token %}
+             <input id="ip_input" name="ip" class="input_search" placeholder="put your IP here...." style="text-align:center;" />
+             <input type="hidden"  name="type" value="ip" />
+
+         </form>
+     </div>
+
+       <div class="tab-pane" id="tab_2" role="tabpanel"><br>
+       <center><img src="media/url.png" width="60" height="60"></center><br>
+           <form method="post" id="url_form" action="/search/">{% csrf_token %}
+                   <input id="url_input" name="url" class="input_search" placeholder="put your URL here...." style="text-align:center;" />
+                  <input type="hidden"  name="type" value="url" />
+
+           </form>
+     </div>
+
+       <div class="tab-pane" id="tab_3" role="tabpanel"><br>
+       <center><img src="media/file.png" width="60" height="60"></center><br>
+           <form method="post" id="hash_form" action="/search/">{% csrf_token %}
+                   <input id="hash_input" name="hash" class="input_search" placeholder="put your hash here...." style="text-align:center;" />
+                    <input type="hidden"  name="type" value="hash" />
+           </form>
+     </div>
+  </div>
+  </div>
+</section>
+<br>
+{% include 'home/footer.html' %}

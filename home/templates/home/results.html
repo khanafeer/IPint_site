@@ -1,0 +1,295 @@
+{% load staticfiles %}
+{% load to_class_name %}
+{% include 'home/head.html'%}
+
+<nav class="navbar fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">IPint</a>
+  <form class="form-inline" method="post" id="ip_form" action="/search/">{% csrf_token %}
+        <input id="ip_input" name="ip" placeholder="put your {{type}} here...." style="text-align:center;border:0px;height:40px;;border-radius:5px;" /><pre>  </pre><br> <br><button type="submit" class="btn btn-primary">Search</button>
+        <input type="hidden"  name="type" value="{{type}}" />
+    </form>
+</nav>
+
+<div class="jumbotron">
+    <pre>
+
+    </pre>
+    <h1>Report For : {{ title }}</h1><br>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9">
+            <div role="tablist" id="panel-1">
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#whois" role="tab">
+                <h6>Whois</h6>
+            </div>
+            <div class="collapse show item-1 collapse" id="whois" role="tabpanel" >
+                <div class="card-body">
+                    <div class="card-text">
+                        {% for k,v in results.whois.items %}
+                            <h7>
+                                {{ k }} : {{ v }}
+                            </h7><br>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"  data-toggle="collapse" data-target="#ports" role="tab">
+                <h6>Open Ports</h6>
+            </div>
+            <div class="collapse show item-1" role="tabpanel" id="ports" >
+                <div class="card-body">
+                    <div class="card-text">
+                        {% for k in results.ports%}
+                            <h7>
+                                {{ k }}
+                            </h7><br>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"  data-toggle="collapse" data-target="#vt" role="tab">
+                <h6>Virus Total</h6>
+            </div>
+            <div class="collapse show item-1" id="vt" role="tabpanel" >
+                <div class="card-body">
+                    <div class="container">
+                        {% for key,value in results.virus_total.items %}
+                            <div class="row">
+                            <div class="col-3">
+                                <h7>{{ key }}</h7>
+                            </div>
+                            <div class="col-9">
+                                {% with value|to_class_name as value_class %}
+                                    {% if value_class == "list" %}
+                                        {% for itt in value %}
+                                            {% for kk,vv in itt.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% elif value_class == "dict" %}
+                                        {% for kk,vv in value.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                        {% endfor %}
+                                    {% else %}
+                                         <h7>{{ value }}</h7><br>
+                                    {% endif %}
+                                    {% endwith %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#otx" role="tab">
+                <h6>OTX</h6>
+            </div>
+            <div class="collapse show item-1" id="otx" role="tabpanel" >
+                <div class="card-body">
+                    <div class="container">
+                        {% for key,value in results.otx.items %}
+                            <div class="row">
+                            <div class="col-3">
+                                <h7>{{ key }}</h7>
+                            </div>
+                            <div class="col-9">
+                                {% with value|to_class_name as value_class %}
+                                    {% if value_class == "list" %}
+                                        {% for itt in value %}
+                                            {% for kk,vv in itt.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% elif value_class == "dict" %}
+                                        {% for kk,vv in value.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                        {% endfor %}
+                                    {% else %}
+                                         <h7>{{ value }}</h7><br>
+                                    {% endif %}
+                                    {% endwith %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"  data-toggle="collapse" data-target="#abuse" role="tab">
+                <h6>abuse ip db</h6>
+            </div>
+            <div class="collapse show item-1" id="abuse" role="tabpanel" >
+                <div class="card-body">
+                    <div class="container">
+                        {% for key,value in results.abuse_ip_db.items %}
+                            <div class="row">
+                            <div class="col-3">
+                                <h7>{{ key }}</h7>
+                            </div>
+                            <div class="col-9">
+                                {% with value|to_class_name as value_class %}
+                                    {% if value_class == "list" %}
+                                        {% for itt in value %}
+                                            {% for kk,vv in itt.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% elif value_class == "dict" %}
+                                        {% for kk,vv in value.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                        {% endfor %}
+                                    {% else %}
+                                         <h7>{{ value }}</h7><br>
+                                    {% endif %}
+                                    {% endwith %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"  data-toggle="collapse" data-target="#tw" role="tab">
+                <h6>twitter</h6>
+            </div>
+            <div class="collapse show item-1" id="tw" role="tabpanel" >
+                <div class="card-body">
+                    <div class="container">
+                        {% for value in results.twitter %}
+                            <div class="row">
+                                <div class="col-12">
+                                    {% for kk,vv in value.items %}
+                                <h7>{{kk}} : {{vv}}</h7><br>
+
+                            {% endfor %}
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="card">
+            <div class="card-header"  data-toggle="collapse" data-target="#meta" role="tab">
+                <h6>meta defender scan</h6>
+            </div>
+            <div class="collapse show item-1" id="meta" role="tabpanel" >
+                <div class="card-body">
+                    <div class="container">
+                        {% for key,value in results.meta_scan.items %}
+                            <div class="row">
+                            <div class="col-3">
+                                <h7>{{ key }}</h7>
+                            </div>
+                            <div class="col-9">
+                                {% with value|to_class_name as value_class %}
+                                    {% if value_class == "list" %}
+                                        {% for itt in value %}
+                                            {% for kk,vv in itt.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% elif value_class == "dict" %}
+                                        {% for kk,vv in value.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                        {% endfor %}
+                                    {% else %}
+                                         <h7>{{ value }}</h7><br>
+                                    {% endif %}
+                                    {% endwith %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="card">
+            <div class="card-header"  data-toggle="collapse" data-target="#honey" role="tab">
+                <h6>honey db</h6>
+            </div>
+            <div class="collapse show item-1" id="honey" role="tabpanel" >
+                <div class="card-body">
+                    <div class="container">
+                        {% for key,value in results.hony_db.items %}
+                            <div class="row">
+                            <div class="col-3">
+                                <h7>{{ key }}</h7>
+                            </div>
+                            <div class="col-9">
+                                {% with value|to_class_name as value_class %}
+                                    {% if value_class == "list" %}
+                                        {% for itt in value %}
+                                            {% for kk,vv in itt.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% elif value_class == "dict" %}
+                                        {% for kk,vv in value.items %}
+                                                <h7>{{kk}} : {{vv}}</h7><br>
+                                        {% endfor %}
+                                    {% else %}
+                                         <h7>{{ value }}</h7><br>
+                                    {% endif %}
+                                    {% endwith %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-header" role="tab">
+                <h6>Comments <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comment_form" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-plus" aria-hidden="true"></i></button></h6>
+                </div>
+                <div class="card-body-fluid">
+                    <div class="card-text-fluid">
+                        <div class="collapse" id="comment_form">
+                              <form id="comment_f" action="/comment/">{% csrf_token %}
+                                  <input id="auther" name="auther" placeholder="auther name"/><br><br>
+                                  <input id="msg" name="msg" placeholder="comment"/><br>
+                                  <input id="source" name="source" value="{{title}}" type="hidden"/><br>
+                                  <center><button id="comment_btn" type="button" class="btn btn-primary">comment</button></center>
+                                <input type="hidden"  name="type" value="{{type}}" />
+                              </form>
+                        </div>
+                        <div class="container cont-p" id="comments_div">
+                            {% for item in comments %}
+                            <div class="row comment">
+                                <div class="col-12">
+                                    <p class="comm">{{ item.msg }}</p>
+                                    <i><p class="auth">By: {{ item.auther }}</p></i>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'home/footer.html' %}
