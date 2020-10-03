@@ -1,3 +1,4 @@
+django==2.2
 OTXv2
 requests
 TwitterSearch
