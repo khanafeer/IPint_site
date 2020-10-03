@@ -3,7 +3,7 @@
 {% include 'home/head.html'%}
 
 <nav class="navbar fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">IPint</a>
+    <a class="navbar-brand" href="/">IPintel</a>
   <form class="form-inline" method="post" id="ip_form" action="/search/">{% csrf_token %}
         <input id="ip_input" name="ip" placeholder="put your {{type}} here...." style="text-align:center;border:0px;height:40px;;border-radius:5px;" /><pre>  </pre><br> <br><button type="submit" class="btn btn-primary">Search</button>
         <input type="hidden"  name="type" value="{{type}}" />
